@@ -15,6 +15,7 @@ npm install
 ```bash
 DATABASE_URL=your-database-url
 PORT=your-port
+GOOGLE_TRANSLATE_API_KEY=your_key
 ```
 4. Run the application:
 ```bash
