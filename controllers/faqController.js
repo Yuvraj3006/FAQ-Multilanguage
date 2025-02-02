@@ -9,9 +9,9 @@ async function handleGetFaq(req, res) {
 
     try {
         const cachedData = await redis.get(cacheKey);
-        if (cachedData) {
-            return res.status(200).json(JSON.parse(cachedData));
-        }
+        // if (cachedData) {
+        //     return res.status(200).json(JSON.parse(cachedData));
+        // }
 
         // Fetch all FAQs from the database
         const FAQs = await FAQ.findAll();
@@ -26,7 +26,7 @@ async function handleGetFaq(req, res) {
                 if (!question || !answer) {
                     [question, answer] = await Promise.all([
                         question ? question : translateText(faq.question, lang),
-                            
+
                         answer ? answer : translateText(faq.answer, lang),
                     ]);
 
@@ -47,8 +47,8 @@ async function handleGetFaq(req, res) {
             })
         );
 
-        // Store only the original FAQs in the cache (not translations)
-       
+        
+       //Storing the translations too, So that when requested for a particular it reduces the response time
         await redis.set(cacheKey, JSON.stringify(translatedFAQs));
         return res.status(200).json(translatedFAQs);
     } catch (error) {
@@ -62,8 +62,7 @@ async function handlePostFaq(req,res) {
     try {
         
         const faq = await FAQ.create({question,answer});
-        //console.log(faq);
-        
+        //console.log(faq)
         //console.log(faq);
         res.status(201).json(faq);
     } catch (error) {
