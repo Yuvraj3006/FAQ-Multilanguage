@@ -4,7 +4,6 @@ require("dotenv").config();
 const GOOGLE_TRANSLATE_API_KEY = process.env.GOOGLE_TRANSLATE_API_KEY; // Store API Key in .env
 
 async function translateText(text, targetLang) {
-    console.log('\n\n\n'.text,targetLang)
     try {
         // Validate input
         if (!text || !targetLang) {

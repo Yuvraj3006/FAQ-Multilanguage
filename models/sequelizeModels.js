@@ -8,7 +8,7 @@ class FAQ extends Model {
     const translations = this.translations || {}; 
     // Fallback to an empty object if translations are undefined
     if(!translations[lang]){
-        return {'message' : "The particular translation does not exists"}
+        return null;
     }
     const translatedText = translations[lang][field]; 
     // Access the translation safely using optional chaining
